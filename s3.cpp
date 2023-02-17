@@ -71,7 +71,6 @@ int main(void) {
     }
 
     if (R == N) {
-        // cout << "---\n";
         if (C % 2 == 1 && M % 2 == 0) {
             cout << "IMPOSSIBLE\n";
             return 0;

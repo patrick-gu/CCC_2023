@@ -11,7 +11,6 @@ ll djik(vector<vector<pair<int, ll>>>& es, int a, int b) {
     while (q.size()) {
         auto [d, v] = *q.begin();
         q.erase(q.begin());
-        // cout << "q " << d << " " << v << endl;
         for (auto [u, c] : es[v]) {
             if (dp[v] + c < dp[u]) {
                 if (q.find({dp[u], u}) != q.end()) q.erase(q.find({dp[u], u}));
@@ -37,34 +36,25 @@ int main(void) {
         cin >> u >> v >> l >> c;
         u--, v--;
         rs[{u, v}].push_back({l, c});
-        // ans += c;
     }
 
     multimap<pair<ll, ll>, pair<ll, ll>> esq;
 
     for (auto& [k, v] : rs) {
-        // cout << (k.first + 1) << " " << (k.second + 1) << "\n";
         sort(v.begin(), v.end());
-        // for (int i = 1; i < (int)v.size(); i++) {
-        // ans -= v[i].second;
-        // }
         esq.insert({v[0], k});
     }
 
     vector<vector<pair<int, ll>>> es(N);
 
     for (auto [x, y] : esq) {
-        // auto [u, v, c] = y;
         auto [l, c] = x;
         auto [u, v] = y;
-        // cout << (u + 1) << " " << (v + 1) << " " << c << "\n";
         ll exis = djik(es, u, v);
-        // cout << "djik " << (u + 1) << " " << (v + 1) << " " << exis << endl;
         if (exis > l) {
             es[u].push_back({v, l});
             es[v].push_back({u, l});
             ans += c;
-            // cout << "use \n";
         }
     }
 
